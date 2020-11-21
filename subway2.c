@@ -1,7 +1,10 @@
 #include "subway.h"
 
+int simulationCount;
+int stationCount = 0;
+char destinations[100][50];
+char dest[50] = { 0 }; 
 char* const startStation = "Gongneung";
-// char destination[100][50];
 struct tm* currentTime = NULL;
 
 int weekdayTime[WEEKDAY_SIZE][2];
@@ -20,37 +23,71 @@ int startMinute;
 
 int main(void)
 {
-    char temp[100];
-    /* while(1)
+    char yesOrNo;
+    while(1)
     {
-        if(CanStartSimulation() == 1)
-        {
-            printf("시작\n");
-            break;
-        }
+        printf("시뮬레이션을 시작하시겠습니까?");
+        scanf("%c", &yesOrNo);
+        while(getchar() != '\n');
 
-        else if(CanStartSimulation() == 0)
+        switch(yesOrNo)
         {
-            printf("종료\n");
-            exit(1);
+            case 'Y':
+            case 'y':
+                break;
+            case 'N':
+            case 'n':
+                return 0;
+                break;
+            default:
+                printf("Y(y) 또는 N(n)으로 입력해주세요\n");
+                continue;
+                break;
         }
+    }
 
-        else if(CanStartSimulation() == -1)
-        {
-            printf("오류\n");
-            continue;
-        }
-    } */
-
+    ChooseCountOfStation();
     LoadTimeTable();
-    LoadStationInterval();
-
-    scanf("%s", temp);    
+    LoadStationInterval();   
     currentTime = FindCurrentTimeByTm();
     ChangeTimeFromCharToInt();
-    PrintDurationOfTime(temp);
+    for(int i = 0; i < simulationCount; i++)
+    {
+        PrintDurationOfTime(destinations[i]);
+    }
     return 0;
 }
+
+void ChooseCountOfStation()
+{     
+     printf("몇 개의 역을 시뮬레이션하시겠습니까?");     
+     scanf("%d", simulationCount);     
+     ChooseDestinationStation(); 
+}
+
+void ChooseDestinationStation() 
+{ 	
+    int check; 	 	
+    
+    while(stationCount != simulationCount)
+    {
+        printf("도착할 역 이름을 영어로 입력해주세요. : "); 	
+        scanf("%s", dest);
+        while (getchar() != '\n');   	
+        for (int i = 0; i < 50; i++) { 		
+            if (dest[i] >= 'A' || dest[i] <= 'Z' || dest[i] >= 'a' || dest[i] <= 'z') 			
+                check = 0; 		
+            else 			
+                check = 1; 	
+        }
+
+        if (check == 0) 	
+        { 		
+            strcpy(destinations[stationCount++], dest); 	
+        } 
+    }
+}
+
 
 int CanStartSimulation()
 {
@@ -77,6 +114,7 @@ int CanStartSimulation()
 
 void LoadTimeTable()
 {
+    int i;
     FILE *fpWeekday = NULL;
     FILE *fpSaturday = NULL;
     FILE *fpHoliday = NULL;
@@ -85,12 +123,12 @@ void LoadTimeTable()
     fpSaturday = fopen("train_table_Saturday.txt", "r");
     fpHoliday = fopen("train_table_Holiday.txt", "r");
     
-    for (int i = 0; i < 397; i++)
+    for (i = 0; i < 397; i++)
     {
         fscanf(fpWeekday, "%s %s", weekday[i]._time, weekday[i].destination);
     }
 
-    for (int i = 0; i < 343; i++)
+    for (i = 0; i < 343; i++)
     {
         fscanf(fpSaturday, "%s %s", saturday[i]._time, saturday[i].destination);
         fscanf(fpHoliday, "%s %s", holiday[i]._time, holiday[i].destination);
@@ -103,10 +141,11 @@ void LoadTimeTable()
 
 void LoadStationInterval()
 {
+    int i;
     FILE *fpInterval = NULL;
     fpInterval = fopen("station_interval.txt", "r");
 
-    for(int i = 0; i < 51; i++)
+    for(i = 0; i < 51; i++)
     {
         fscanf(fpInterval, "%d %s %d", &stations[i].stationNum, stations[i].station, &stations[i].intervalFromGongneung);
     }
@@ -478,8 +517,7 @@ void PrintDurationOfTime(char* _destination)
     int destMin;
     
     int startTimeIndex;
-    char destination[50];
-    char destTime[6];
+
     int tempI;
     startStationNum = ReturnStationNumber(startStation);
     destStationNum = ReturnStationNumber(_destination);
