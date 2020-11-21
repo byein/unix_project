@@ -52,11 +52,16 @@ int main(void)
     LoadStationInterval();   
     currentTime = FindCurrentTimeByTm();
 
+    if(currentTime -> tm_hour == 23)
+    {
+
+    }
+
     if(currentTime -> tm_hour >= 0 && currentTime -> tm_hour < 5)
     {
         raise(SIGHUP);
     }
-    
+
     ChangeTimeFromCharToInt();
     for(int i = 0; i < simulationCount; i++)
     {
@@ -69,7 +74,9 @@ int main(void)
 void ChooseCountOfStation()
 {     
      printf("몇 개의 역을 시뮬레이션하시겠습니까?(100개이하로) : ");     
-     scanf("%d", &simulationCount);     
+     scanf("%d", &simulationCount);
+     if(simulationCount == 0)
+        exit(1);     
      ChooseDestinationStation(); 
 }
 
@@ -321,6 +328,8 @@ int FindStartTimeWeekdayIndex(int startStationNum, int destStationNum)
                     
         }
     }
+
+    printf("막차시간이 지났습니다.\n");
 }
 
 int FindStartTimeSaturdayIndex(int startStationNum, int destStationNum)
@@ -413,6 +422,7 @@ int FindStartTimeSaturdayIndex(int startStationNum, int destStationNum)
                     
         }
     }
+    printf("막차시간이 지났습니다.\n");
 }
 
 int FindStartTimeHolidayIndex(int startStationNum, int destStationNum)
@@ -505,6 +515,7 @@ int FindStartTimeHolidayIndex(int startStationNum, int destStationNum)
                     
         }
     }
+    printf("막차시간이 지났습니다.\n");
 }
 
 
