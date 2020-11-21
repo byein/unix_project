@@ -52,10 +52,7 @@ int main(void)
     LoadStationInterval();   
     currentTime = FindCurrentTimeByTm();
 
-    if(currentTime -> tm_hour == 23)
-    {
-
-    }
+    printf("%s\n", stations[17].station);
 
     if(currentTime -> tm_hour >= 0 && currentTime -> tm_hour < 5)
     {
@@ -88,9 +85,10 @@ void ChooseDestinationStation()
     {
         printf("도착할 역 이름을 영어로 입력해주세요.(첫 글자 대문자로) : "); 	
         scanf("%s", dest);
+        printf("%s\n", dest);
         while (getchar() != '\n');   	
-        for (int i = 0; i < 50; i++) { 		
-            if (dest[i] >= 'A' || dest[i] <= 'Z' || dest[i] >= 'a' || dest[i] <= 'z') 			
+        for (int i = 0; i < strlen(dest); i++) { 		
+            if ((dest[i] >= 'A' && dest[i] <= 'Z') || (dest[i] >= 'a' && dest[i] <= 'z') || dest[i] == '_' || dest[i] == '-' || dest[i] == 39) 			
                 check = 0; 		
             else 			
                 check = 1; 	
@@ -573,5 +571,5 @@ void PrintDurationOfTime(char* _destination)
     }
 
     printf("TimeInterval: %d\n", timeInterval);
-    printf("ArrivalTime: %d:%d\n", destHour, destMin);
+    printf("ArrivalTime: %d:%2d\n", destHour, destMin);
 }  

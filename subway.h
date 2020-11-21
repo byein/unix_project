@@ -22,7 +22,7 @@ struct timetable
 struct station
 {
     int stationNum;
-    char station[18];
+    char station[30];
     int intervalFromGongneung;
 };
 
@@ -34,7 +34,6 @@ void LoadTimeTable(); // 지하철 시간표 불러오기
 void LoadStationInterval(); // 지하철 시간간격표 불러오기
 void ChooseCountOfStation(); // 역 개수 고르기
 void ChooseDestinationStation(); // 도착역 고르기
-char* FindCurrentTime(); // 현재 시간 찾기(char*)
 struct tm* FindCurrentTimeByTm(); // 현재 시간 찾기(struct tm)
 void ChangeTimeFromCharToInt(); // char* 타입의 시간을 int 타입으로 바꾸기
 /*
