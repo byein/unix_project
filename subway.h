@@ -36,9 +36,12 @@ void ChooseDestinationStation(); // 도착역 고르기
 char* FindCurrentTime(); // 현재 시간 찾기(char*)
 struct tm* FindCurrentTimeByTm(); // 현재 시간 찾기(struct tm)
 void ChangeTimeFromCharToInt(); // char* 타입의 시간을 int 타입으로 바꾸기
-char* FindStartTimeWeekday();
-char* FindStartTimeSaturday();
-char* FindStartTimeHoliday();
+/*
+    현재 시간과 가장 가까운 열차 출발시간의 index 가져오기
+*/
+int FindStartTimeWeekdayIndex(); 
+int FindStartTimeSaturdayIndex();
+int FindStartTimeHolidayIndex();
 int CompareBetweenTimetableAndCurrentTime(char* _destination); // if same 1, else 0
 int ReturnStationNumber(char* station); // 역 번호 맵핑
 void PrintDurationOfTime(); // 지속시간 출력
