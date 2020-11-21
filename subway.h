@@ -8,6 +8,7 @@
 #include <fcntl.h>
 #include <time.h>
 #include <sys/time.h>
+#include <signal.h>
 #define WEEKDAY_SIZE 397
 #define SATURDAY_SIZE_AND_HOLIDAY_SIZE 343
 #define STATION_INTERVAL_SIZE 51

@@ -1,0 +1,314 @@
+char* FindStartTimeWeekday(int startStationNum, int destStationNum)
+{
+    static char startTime[6];
+    int tempI;
+
+    if(startStationNum == destStationNum)
+        return NULL;
+
+    for(int i = 0; i < WEEKDAY_SIZE; i++)
+    {
+        if(currentTime -> tm_hour > weekdayTime[i][0])
+            continue;
+        else if(currentTime -> tm_hour == weekdayTime[i][0])
+        {
+            if(currentTime -> tm_min > weekdayTime[i][1])
+                continue;
+            else
+            {
+                tempI = i;
+                if(destStationNum == 709)
+                {
+                    if(strcmp(weekday[tempI].destination, "Jangam") == 0)
+                    {
+                        strcpy(startTime, weekday[tempI]._time);
+                        break;
+                    }
+                }
+
+                else if(destStationNum >= 710 && destStationNum <= 715)
+                {
+                    if(strcmp(weekday[tempI].destination, "Jangam") == 0 || strcmp(weekday[tempI].destination, "Dobongsan") == 0)
+                    {
+                        strcpy(startTime, weekday[tempI]._time);
+                        break;
+                    }
+                }
+                        
+
+                else if(destStationNum >= 717 && destStationNum <= 750)
+                {
+                    if(strcmp(weekday[tempI].destination, "Onsu") == 0 || strcmp(weekday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                    {   
+                        strcpy(startTime, weekday[tempI]._time);
+                        break;
+                    }
+                }
+
+                else
+                {
+                    if(strcmp(weekday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                    {
+                        strcpy(startTime, weekday[tempI]._time);
+                        break;
+                    }
+                }
+                        
+            }
+                    
+        }
+        else
+        {
+            tempI = i;
+            if(destStationNum == 709)
+            {
+                if(strcmp(weekday[tempI].destination, "Jangam") == 0)
+                {
+                    strcpy(startTime, weekday[tempI]._time);
+                    break;
+                }
+            }
+
+            else if(destStationNum >= 710 && destStationNum <= 715)
+            {
+                if(strcmp(weekday[tempI].destination, "Jangam") == 0 || strcmp(weekday[tempI].destination, "Dobongsan") == 0)
+                {
+                    strcpy(startTime, weekday[tempI]._time);
+                    break;
+                }
+            }
+                        
+
+            else if(destStationNum >= 717 && destStationNum <= 750)
+            {
+                if(strcmp(weekday[tempI].destination, "Onsu") == 0 || strcmp(weekday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                {   
+                    strcpy(startTime, weekday[tempI]._time);
+                    break;
+                }
+            }
+
+            else
+            {
+                if(strcmp(weekday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                {
+                        strcpy(startTime, weekday[tempI]._time);
+                        break;
+                }
+            }
+                    
+        }
+    }
+
+    return startTime;
+}
+
+char* FindStartTimeSaturday(int startStationNum, int destStationNum)
+{
+    static char startTime[6];
+    int tempI;
+
+    if(startStationNum == destStationNum)
+        return NULL;
+
+    for(int i = 0; i < SATURDAY_SIZE_AND_HOLIDAY_SIZE; i++)
+    {
+        if(currentTime -> tm_hour > saturdayTime[i][0])
+            continue;
+        else if(currentTime -> tm_hour == saturdayTime[i][0])
+        {
+            if(currentTime -> tm_min > saturdayTime[i][1])
+                continue;
+            else
+            {
+                tempI = i;
+                if(destStationNum == 709)
+                {
+                    if(strcmp(saturday[tempI].destination, "Jangam") == 0)
+                    {
+                        strcpy(startTime, saturday[tempI]._time);
+                        break;
+                    }
+                }
+
+                else if(destStationNum >= 710 && destStationNum <= 715)
+                {
+                    if(strcmp(saturday[tempI].destination, "Jangam") == 0 || strcmp(saturday[tempI].destination, "Dobongsan") == 0)
+                    {
+                        strcpy(startTime, saturday[tempI]._time);
+                        break;
+                    }
+                }
+                        
+
+                else if(destStationNum >= 717 && destStationNum <= 750)
+                {
+                    if(strcmp(saturday[tempI].destination, "Onsu") == 0 || strcmp(saturday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                    {   
+                        strcpy(startTime, saturday[tempI]._time);
+                        break;
+                    }
+                }
+
+                else
+                {
+                    if(strcmp(saturday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                    {
+                        strcpy(startTime, saturday[tempI]._time);
+                        break;
+                    }
+                }
+                        
+            }
+                    
+        }
+        else
+        {
+            tempI = i;
+            if(destStationNum == 709)
+            {
+                if(strcmp(saturday[tempI].destination, "Jangam") == 0)
+                {
+                    strcpy(startTime, saturday[tempI]._time);
+                    break;
+                }
+            }
+
+            else if(destStationNum >= 710 && destStationNum <= 715)
+            {
+                if(strcmp(saturday[tempI].destination, "Jangam") == 0 || strcmp(saturday[tempI].destination, "Dobongsan") == 0)
+                {
+                    strcpy(startTime, saturday[tempI]._time);
+                    break;
+                }
+            }
+                        
+
+            else if(destStationNum >= 717 && destStationNum <= 750)
+            {
+                if(strcmp(saturday[tempI].destination, "Onsu") == 0 || strcmp(saturday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                {   
+                    strcpy(startTime, saturday[tempI]._time);
+                    break;
+                }
+            }
+
+            else
+            {
+                if(strcmp(saturday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                {
+                        strcpy(startTime, saturday[tempI]._time);
+                        break;
+                }
+            }
+                    
+        }
+    }
+
+    return startTime;
+}
+
+char* FindStartTimeHoliday(int startStationNum, int destStationNum)
+{
+    static char startTime[6];
+    int tempI;
+
+    if(startStationNum == destStationNum)
+        return NULL;
+
+    for(int i = 0; i < SATURDAY_SIZE_AND_HOLIDAY_SIZE; i++)
+    {
+        if(currentTime -> tm_hour > holidayTime[i][0])
+            continue;
+        else if(currentTime -> tm_hour == holidayTime[i][0])
+        {
+            if(currentTime -> tm_min > holidayTime[i][1])
+                continue;
+            else
+            {
+                tempI = i;
+                if(destStationNum == 709)
+                {
+                    if(strcmp(holiday[tempI].destination, "Jangam") == 0)
+                    {
+                        strcpy(startTime, holiday[tempI]._time);
+                        break;
+                    }
+                }
+
+                else if(destStationNum >= 710 && destStationNum <= 715)
+                {
+                    if(strcmp(holiday[tempI].destination, "Jangam") == 0 || strcmp(holiday[tempI].destination, "Dobongsan") == 0)
+                    {
+                        strcpy(startTime, holiday[tempI]._time);
+                        break;
+                    }
+                }
+                        
+
+                else if(destStationNum >= 717 && destStationNum <= 750)
+                {
+                    if(strcmp(holiday[tempI].destination, "Onsu") == 0 || strcmp(holiday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                    {   
+                        strcpy(startTime, holiday[tempI]._time);
+                        break;
+                    }
+                }
+
+                else
+                {
+                    if(strcmp(holiday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                    {
+                        strcpy(startTime, holiday[tempI]._time);
+                        break;
+                    }
+                }
+                        
+            }
+                    
+        }
+        else
+        {
+            tempI = i;
+            if(destStationNum == 709)
+            {
+                if(strcmp(holiday[tempI].destination, "Jangam") == 0)
+                {
+                    strcpy(startTime, holiday[tempI]._time);
+                    break;
+                }
+            }
+
+            else if(destStationNum >= 710 && destStationNum <= 715)
+            {
+                if(strcmp(holiday[tempI].destination, "Jangam") == 0 || strcmp(holiday[tempI].destination, "Dobongsan") == 0)
+                {
+                    strcpy(startTime, holiday[tempI]._time);
+                    break;
+                }
+            }
+                        
+
+            else if(destStationNum >= 717 && destStationNum <= 750)
+            {
+                if(strcmp(holiday[tempI].destination, "Onsu") == 0 || strcmp(holiday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                {   
+                    strcpy(startTime, holiday[tempI]._time);
+                    break;
+                }
+            }
+
+            else
+            {
+                if(strcmp(holiday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                {
+                        strcpy(startTime, holiday[tempI]._time);
+                        break;
+                }
+            }
+                    
+        }
+    }
+
+    return startTime;
+}

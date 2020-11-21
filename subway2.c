@@ -21,28 +21,29 @@ const int numberOfJangam = 709;
 int startHour;
 int startMinute;
 
+void signalHandler()
+{
+    printf("막차시간이 지났습니다.\n");
+    exit(1);
+}
+
 int main(void)
 {
+    signal(SIGHUP, signalHandler);
     char yesOrNo;
     while(1)
     {
-        printf("시뮬레이션을 시작하시겠습니까?");
+        printf("시뮬레이션을 시작하시겠습니까? ");
         scanf("%c", &yesOrNo);
         while(getchar() != '\n');
 
-        switch(yesOrNo)
+        if (yesOrNo == 'Y' || yesOrNo == 'y')
+            break;
+        else if (yesOrNo == 'N' || yesOrNo == 'n')
+            return 0;
+        else
         {
-            case 'Y':
-            case 'y':
-                break;
-            case 'N':
-            case 'n':
-                return 0;
-                break;
-            default:
-                printf("Y(y) 또는 N(n)으로 입력해주세요\n");
-                continue;
-                break;
+            printf("Y(y) 또는 N(n)으로 입력해주세요\n");
         }
     }
 
@@ -50,18 +51,25 @@ int main(void)
     LoadTimeTable();
     LoadStationInterval();   
     currentTime = FindCurrentTimeByTm();
+
+    if(currentTime -> tm_hour >= 0 && currentTime -> tm_hour < 5)
+    {
+        raise(SIGHUP);
+    }
+    
     ChangeTimeFromCharToInt();
     for(int i = 0; i < simulationCount; i++)
     {
         PrintDurationOfTime(destinations[i]);
+        printf("\n");
     }
     return 0;
 }
 
 void ChooseCountOfStation()
 {     
-     printf("몇 개의 역을 시뮬레이션하시겠습니까?");     
-     scanf("%d", simulationCount);     
+     printf("몇 개의 역을 시뮬레이션하시겠습니까?(100개이하로) : ");     
+     scanf("%d", &simulationCount);     
      ChooseDestinationStation(); 
 }
 
@@ -71,7 +79,7 @@ void ChooseDestinationStation()
     
     while(stationCount != simulationCount)
     {
-        printf("도착할 역 이름을 영어로 입력해주세요. : "); 	
+        printf("도착할 역 이름을 영어로 입력해주세요.(첫 글자 대문자로) : "); 	
         scanf("%s", dest);
         while (getchar() != '\n');   	
         for (int i = 0; i < 50; i++) { 		
@@ -84,31 +92,13 @@ void ChooseDestinationStation()
         if (check == 0) 	
         { 		
             strcpy(destinations[stationCount++], dest); 	
+        }
+
+        else if(check == 1)
+        {
+            printf("다시 입력하세요\n");
+            continue;
         } 
-    }
-}
-
-
-int CanStartSimulation()
-{
-    char yesOrNo;
-    printf("시뮬레이션을 시작하시겠습니까?");
-    scanf("%c", &yesOrNo);
-    while(getchar() != '\n');
-
-    switch(yesOrNo)
-    {
-        case 'Y':
-        case 'y':
-            return 1;
-            break;
-        case 'N':
-        case 'n':
-            return 0;
-            break;
-        default:
-            return -1;
-            break;
     }
 }
 
@@ -255,9 +245,20 @@ int FindStartTimeWeekdayIndex(int startStationNum, int destStationNum)
                     }
                 }
 
-                else if(destStationNum >= 710 && destStationNum <= 715)
+                else if(destStationNum == 710)
                 {
                     if(strcmp(weekday[i].destination, "Jangam") == 0 || strcmp(weekday[i].destination, "Dobongsan") == 0)
+                    {
+                        return i;
+                    }
+                }
+                /*
+                    수락산행 예외(평일만)
+                */
+                else if(destStationNum >= 711 && destStationNum <= 715)
+                {
+                    if(strcmp(weekday[i].destination, "Jangam") == 0 || strcmp(weekday[i].destination, "Dobongsan") == 0 || 
+                        strcmp(weekday[i].destination, "Suraksan"))
                     {
                         return i;
                     }

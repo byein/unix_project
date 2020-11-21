@@ -16,7 +16,7 @@
 724 Junggok 14
 725 Gunja 16
 726 Children's_Grand_Park 18
-727 Konkik_University 20
+727 Konkuk_University 20
 728 Ttukseom_Park 22
 729 Cheongdam 25
 730 Gangnam-gu_Office 27
