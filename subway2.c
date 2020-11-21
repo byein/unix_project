@@ -14,7 +14,9 @@ Timetable holiday[SATURDAY_SIZE_AND_HOLIDAY_SIZE];
 
 Station stations[STATION_INTERVAL_SIZE];
 
-
+const int numberOfJangam = 709;
+int startHour;
+int startMinute;
 
 int main(void)
 {
@@ -46,7 +48,7 @@ int main(void)
     scanf("%s", temp);    
     currentTime = FindCurrentTimeByTm();
     ChangeTimeFromCharToInt();
-    CompareBetweenTimetableAndCurrentTime(temp);
+    PrintDurationOfTime(temp);
     return 0;
 }
 
@@ -188,7 +190,7 @@ void ChangeTimeFromCharToInt()
     }
 }
 
-char* FindStartTimeWeekday(int startStationNum, int destStationNum)
+int FindStartTimeWeekdayIndex(int startStationNum, int destStationNum)
 {
     static char startTime[6];
     int tempI;
@@ -206,41 +208,36 @@ char* FindStartTimeWeekday(int startStationNum, int destStationNum)
                 continue;
             else
             {
-                tempI = i;
                 if(destStationNum == 709)
                 {
-                    if(strcmp(weekday[tempI].destination, "Jangam") == 0)
+                    if(strcmp(weekday[i].destination, "Jangam") == 0)
                     {
-                        strcpy(startTime, weekday[tempI]._time);
-                        break;
+                        return i;
                     }
                 }
 
                 else if(destStationNum >= 710 && destStationNum <= 715)
                 {
-                    if(strcmp(weekday[tempI].destination, "Jangam") == 0 || strcmp(weekday[tempI].destination, "Dobongsan") == 0)
+                    if(strcmp(weekday[i].destination, "Jangam") == 0 || strcmp(weekday[i].destination, "Dobongsan") == 0)
                     {
-                        strcpy(startTime, weekday[tempI]._time);
-                        break;
+                        return i;
                     }
                 }
                         
 
                 else if(destStationNum >= 717 && destStationNum <= 750)
                 {
-                    if(strcmp(weekday[tempI].destination, "Onsu") == 0 || strcmp(weekday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                    if(strcmp(weekday[i].destination, "Onsu") == 0 || strcmp(weekday[i].destination, "Bupyeong-gu_Office") == 0)
                     {   
-                        strcpy(startTime, weekday[tempI]._time);
-                        break;
+                        return i;
                     }
                 }
 
                 else
                 {
-                    if(strcmp(weekday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                    if(strcmp(weekday[i].destination, "Bupyeong-gu_Office") == 0)
                     {
-                        strcpy(startTime, weekday[tempI]._time);
-                        break;
+                        return i;
                     }
                 }
                         
@@ -249,53 +246,45 @@ char* FindStartTimeWeekday(int startStationNum, int destStationNum)
         }
         else
         {
-            tempI = i;
             if(destStationNum == 709)
             {
-                if(strcmp(weekday[tempI].destination, "Jangam") == 0)
+                if(strcmp(weekday[i].destination, "Jangam") == 0)
                 {
-                    strcpy(startTime, weekday[tempI]._time);
-                    break;
+                    return i;
                 }
             }
 
             else if(destStationNum >= 710 && destStationNum <= 715)
             {
-                if(strcmp(weekday[tempI].destination, "Jangam") == 0 || strcmp(weekday[tempI].destination, "Dobongsan") == 0)
+                if(strcmp(weekday[i].destination, "Jangam") == 0 || strcmp(weekday[i].destination, "Dobongsan") == 0)
                 {
-                    strcpy(startTime, weekday[tempI]._time);
-                    break;
+                    return i;
                 }
             }
                         
 
             else if(destStationNum >= 717 && destStationNum <= 750)
             {
-                if(strcmp(weekday[tempI].destination, "Onsu") == 0 || strcmp(weekday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                if(strcmp(weekday[i].destination, "Onsu") == 0 || strcmp(weekday[i].destination, "Bupyeong-gu_Office") == 0)
                 {   
-                    strcpy(startTime, weekday[tempI]._time);
-                    break;
+                    return i;
                 }
             }
 
             else
             {
-                if(strcmp(weekday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                if(strcmp(weekday[i].destination, "Bupyeong-gu_Office") == 0)
                 {
-                        strcpy(startTime, weekday[tempI]._time);
-                        break;
+                    return i;
                 }
             }
                     
         }
     }
-
-    return startTime;
 }
 
-char* FindStartTimeSaturday(int startStationNum, int destStationNum)
+int FindStartTimeSaturdayIndex(int startStationNum, int destStationNum)
 {
-    static char startTime[6];
     int tempI;
 
     if(startStationNum == destStationNum)
@@ -311,41 +300,36 @@ char* FindStartTimeSaturday(int startStationNum, int destStationNum)
                 continue;
             else
             {
-                tempI = i;
                 if(destStationNum == 709)
                 {
-                    if(strcmp(saturday[tempI].destination, "Jangam") == 0)
+                    if(strcmp(saturday[i].destination, "Jangam") == 0)
                     {
-                        strcpy(startTime, saturday[tempI]._time);
-                        break;
+                        return i;
                     }
                 }
 
                 else if(destStationNum >= 710 && destStationNum <= 715)
                 {
-                    if(strcmp(saturday[tempI].destination, "Jangam") == 0 || strcmp(saturday[tempI].destination, "Dobongsan") == 0)
+                    if(strcmp(saturday[i].destination, "Jangam") == 0 || strcmp(saturday[i].destination, "Dobongsan") == 0)
                     {
-                        strcpy(startTime, saturday[tempI]._time);
-                        break;
+                        return i;
                     }
                 }
                         
 
                 else if(destStationNum >= 717 && destStationNum <= 750)
                 {
-                    if(strcmp(saturday[tempI].destination, "Onsu") == 0 || strcmp(saturday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                    if(strcmp(saturday[i].destination, "Onsu") == 0 || strcmp(saturday[i].destination, "Bupyeong-gu_Office") == 0)
                     {   
-                        strcpy(startTime, saturday[tempI]._time);
-                        break;
+                        return i;
                     }
                 }
 
                 else
                 {
-                    if(strcmp(saturday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                    if(strcmp(saturday[i].destination, "Bupyeong-gu_Office") == 0)
                     {
-                        strcpy(startTime, saturday[tempI]._time);
-                        break;
+                        return i;
                     }
                 }
                         
@@ -354,53 +338,45 @@ char* FindStartTimeSaturday(int startStationNum, int destStationNum)
         }
         else
         {
-            tempI = i;
             if(destStationNum == 709)
             {
-                if(strcmp(saturday[tempI].destination, "Jangam") == 0)
+                if(strcmp(saturday[i].destination, "Jangam") == 0)
                 {
-                    strcpy(startTime, saturday[tempI]._time);
-                    break;
+                    return i;
                 }
             }
 
             else if(destStationNum >= 710 && destStationNum <= 715)
             {
-                if(strcmp(saturday[tempI].destination, "Jangam") == 0 || strcmp(saturday[tempI].destination, "Dobongsan") == 0)
+                if(strcmp(saturday[i].destination, "Jangam") == 0 || strcmp(saturday[i].destination, "Dobongsan") == 0)
                 {
-                    strcpy(startTime, saturday[tempI]._time);
-                    break;
+                    return i;
                 }
             }
                         
 
             else if(destStationNum >= 717 && destStationNum <= 750)
             {
-                if(strcmp(saturday[tempI].destination, "Onsu") == 0 || strcmp(saturday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                if(strcmp(saturday[i].destination, "Onsu") == 0 || strcmp(saturday[i].destination, "Bupyeong-gu_Office") == 0)
                 {   
-                    strcpy(startTime, saturday[tempI]._time);
-                    break;
+                    return i;
                 }
             }
 
             else
             {
-                if(strcmp(saturday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                if(strcmp(saturday[i].destination, "Bupyeong-gu_Office") == 0)
                 {
-                        strcpy(startTime, saturday[tempI]._time);
-                        break;
+                    return i;
                 }
             }
                     
         }
     }
-
-    return startTime;
 }
 
-char* FindStartTimeHoliday(int startStationNum, int destStationNum)
+int FindStartTimeHolidayIndex(int startStationNum, int destStationNum)
 {
-    static char startTime[6];
     int tempI;
 
     if(startStationNum == destStationNum)
@@ -416,41 +392,36 @@ char* FindStartTimeHoliday(int startStationNum, int destStationNum)
                 continue;
             else
             {
-                tempI = i;
                 if(destStationNum == 709)
                 {
-                    if(strcmp(holiday[tempI].destination, "Jangam") == 0)
+                    if(strcmp(holiday[i].destination, "Jangam") == 0)
                     {
-                        strcpy(startTime, holiday[tempI]._time);
-                        break;
+                        return i;
                     }
                 }
 
                 else if(destStationNum >= 710 && destStationNum <= 715)
                 {
-                    if(strcmp(holiday[tempI].destination, "Jangam") == 0 || strcmp(holiday[tempI].destination, "Dobongsan") == 0)
+                    if(strcmp(holiday[i].destination, "Jangam") == 0 || strcmp(holiday[i].destination, "Dobongsan") == 0)
                     {
-                        strcpy(startTime, holiday[tempI]._time);
-                        break;
+                        return i;
                     }
                 }
                         
 
                 else if(destStationNum >= 717 && destStationNum <= 750)
                 {
-                    if(strcmp(holiday[tempI].destination, "Onsu") == 0 || strcmp(holiday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                    if(strcmp(holiday[i].destination, "Onsu") == 0 || strcmp(holiday[i].destination, "Bupyeong-gu_Office") == 0)
                     {   
-                        strcpy(startTime, holiday[tempI]._time);
-                        break;
+                        return i;
                     }
                 }
 
                 else
                 {
-                    if(strcmp(holiday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                    if(strcmp(holiday[i].destination, "Bupyeong-gu_Office") == 0)
                     {
-                        strcpy(startTime, holiday[tempI]._time);
-                        break;
+                        return i;
                     }
                 }
                         
@@ -459,80 +430,98 @@ char* FindStartTimeHoliday(int startStationNum, int destStationNum)
         }
         else
         {
-            tempI = i;
             if(destStationNum == 709)
             {
-                if(strcmp(holiday[tempI].destination, "Jangam") == 0)
+                if(strcmp(holiday[i].destination, "Jangam") == 0)
                 {
-                    strcpy(startTime, holiday[tempI]._time);
-                    break;
+                    return i;
                 }
             }
 
             else if(destStationNum >= 710 && destStationNum <= 715)
             {
-                if(strcmp(holiday[tempI].destination, "Jangam") == 0 || strcmp(holiday[tempI].destination, "Dobongsan") == 0)
+                if(strcmp(holiday[i].destination, "Jangam") == 0 || strcmp(holiday[i].destination, "Dobongsan") == 0)
                 {
-                    strcpy(startTime, holiday[tempI]._time);
-                    break;
+                    return i;
                 }
             }
                         
 
             else if(destStationNum >= 717 && destStationNum <= 750)
             {
-                if(strcmp(holiday[tempI].destination, "Onsu") == 0 || strcmp(holiday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                if(strcmp(holiday[i].destination, "Onsu") == 0 || strcmp(holiday[i].destination, "Bupyeong-gu_Office") == 0)
                 {   
-                    strcpy(startTime, holiday[tempI]._time);
-                    break;
+                    return i;
                 }
             }
 
             else
             {
-                if(strcmp(holiday[tempI].destination, "Bupyeong-gu_Office") == 0)
+                if(strcmp(holiday[i].destination, "Bupyeong-gu_Office") == 0)
                 {
-                        strcpy(startTime, holiday[tempI]._time);
-                        break;
+                    return i;
                 }
             }
                     
         }
     }
-
-    return startTime;
 }
 
 
-int CompareBetweenTimetableAndCurrentTime(char* _destination)
+void PrintDurationOfTime(char* _destination)
 {
     int startStationNum;
     int destStationNum;
+    int timeInterval;
+
+    int destHour;
+    int destMin;
     
-    char startTime[6];
+    int startTimeIndex;
     char destination[50];
+    char destTime[6];
     int tempI;
     startStationNum = ReturnStationNumber(startStation);
     destStationNum = ReturnStationNumber(_destination);
 
-    printf("%d\n", destStationNum);
-
+    timeInterval = stations[destStationNum - numberOfJangam].intervalFromGongneung;
 
     if(currentTime -> tm_wday >= 1 && currentTime -> tm_wday <= 5)
     {
-        strcpy(startTime, FindStartTimeWeekday(startStationNum, destStationNum));
+        startTimeIndex = FindStartTimeWeekdayIndex(startStationNum, destStationNum);
+        printf("DepartureTime: %s\n", weekday[startTimeIndex]._time);
+        destHour = weekdayTime[startTimeIndex][0];
+        destMin = weekdayTime[startTimeIndex][1] + timeInterval;
     }
 
     else if(currentTime -> tm_wday == 6)
     {
-        strcpy(startTime, FirstStartTimeSaturday(startStationNum, destStationNum));
+        startTimeIndex = FindStartTimeSaturdayIndex(startStationNum, destStationNum);
+        printf("DepartureTime: %s\n", saturday[startTimeIndex]._time);
+        destHour = saturdayTime[startTimeIndex][0];
+        destMin = saturdayTime[startTimeIndex][1] + timeInterval;
     }
 
     else
     {
-        strcpy(startTime, FindStartTimeHoliday(startStationNum, destStationNum));
+        startTimeIndex = FindStartTimeHolidayIndex(startStationNum, destStationNum);
+        printf("DepartureTime: %s\n", holiday[startTimeIndex]._time);
+        destHour = holidayTime[startTimeIndex][0];
+        destMin = holidayTime[startTimeIndex][1] + timeInterval;
     }
 
-    printf("%s\n", startTime);
-    return 0;
-}    
+    if(destMin >= 60 && destMin <= 120)
+    {
+        destMin -= 60;
+        destHour += 1;
+    }
+
+    if(destMin >= 120)
+    {
+        destMin -= 120;
+        destHour += 2;
+    }
+
+    printf("TimeInterval: %d\n", timeInterval);
+    printf("ArrivalTime: %d:%d\n", destHour, destMin);
+}  
